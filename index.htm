@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prototype 1</title>
+<script src="http://cdn.robotwebtools.org/threejs/current/three.js"></script>
+<script src="http://cdn.robotwebtools.org/threejs/current/ColladaLoader.js"></script>
+<script src="http://cdn.robotwebtools.org/ColladaAnimationCompress/current/ColladaLoader2.js"></script>
+<script src="http://cdn.robotwebtools.org/threejs/current/STLLoader.js"></script>
+<script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.js"></script>
+<script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.js"></script>
+<script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+h1, code {
+    font-family: Ubuntu Mono;
+}
+
+iframe {
+    border: 0px;
+}
+</style>
+</head>
+<body>
+<div id="app1">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+            <h1>Prototype 1</h1>
+            <p>CRH380B-6216L &lt;muner_szr6216@outlook.com&gt;</p>
+            <hr>
+            <div v-show="state != 'success'">
+                <p><strong>The robot is offline.</strong><br>Try to do the following steps:</p>
+                <ol>
+                    <li>Connect to the robot in the terminal of host</li>
+                    <li>Start <i>joint state publisher</i> by entering the following command in a <i>new terminal</i>:<br><code>rosrun joint_state_publisher joint_state_publisher</code></li>
+                    <li>Start <i>TF bridge for ROS web clients</i> by entering the following command in a <i>new terminal</i>:<br><code>rosrun tf2_web_republisher tf2_web_republisher</code></li>
+                    <li>Launch <i>rosbridge</i> by entering the following command in a <i>new terminal</i>:<br><code>roslaunch rosbridge_server rosbridge_websocket.launch</code></li>
+                    <li>Enter the address of the host below and click "connect"</li>
+                </ol>
+                <div class="form-inline form-group">
+                    <input class="form-control" style="width: 50%" placeholder="Address of the ROS host" v-model="address"></input>
+                    <button class="btn btn-primary" @click="connect">Connect</button>
+                </div>
+            </div>
+            <div v-show="state == 'success'">
+                <div id="visual" class="form-group">
+                    <label>URDF Visualization</label>
+                    <!--div class="form-group">
+                        <button class="btn btn-primary" id="btnLoadView" @click="rosInitView2">Load Visual</button>
+                    </div>
+                    <div id="urdf">
+                    </div-->
+                </div>
+                <div class="form-group">
+                    <label>Joints' State</label>
+                    <p v-for="(name, index) in nameJoints">{{name}}: {{valueJoints[index]}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="app.js"></script>
+</html>

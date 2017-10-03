@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<script src="http://cdn.robotwebtools.org/threejs/current/three.js"></script>
+<script src="http://cdn.robotwebtools.org/threejs/current/ColladaLoader.js"></script>
+<script src="http://cdn.robotwebtools.org/ColladaAnimationCompress/current/ColladaLoader2.js"></script>
+<script src="http://cdn.robotwebtools.org/threejs/current/STLLoader.js"></script>
+<script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.js"></script>
+<script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.js"></script>
+<script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.js"></script>
+<script>
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+  /**
+   * Setup all visualization elements when the page is loaded.
+   */
+  function init() {
+    var address = getParameterByName('address');
+    var path3D = getParameterByName('path');
+    console.log(address);
+    console.log(path3D);
+    // Connect to ROS.
+    var ros = new ROSLIB.Ros({
+      url : address
+    });
+
+    // Create the main viewer.
+    var viewer = new ROS3D.Viewer({
+      divID : 'urdf',
+      width : 800,
+      height : 600,
+      antialias : true
+    });
+
+    // Add a grid.
+    viewer.addObject(new ROS3D.Grid());
+
+    // Setup a client to listen to TFs.
+    var tfClient = new ROSLIB.TFClient({
+      ros : ros,
+      angularThres : 0.01,
+      transThres : 0.01,
+      rate : 10.0
+    });
+
+    // Setup the URDF client.
+    var urdfClient = new ROS3D.UrdfClient({
+      ros : ros,
+      tfClient : tfClient,
+      path : path3D,
+      rootObject : viewer.scene,
+      loader : ROS3D.COLLADA_LOADER
+    });
+    console.log(urdfClient);
+  }
+</script>
+<style>
+body {
+    margin: 0px;
+}
+</style>
+</head>
+
+<body onload="init()">
+  <div id="urdf"></div>
+</body>
+</html>
