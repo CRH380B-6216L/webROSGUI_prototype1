@@ -1,0 +1,17 @@
+<package>
+  <name>prototype_1</name>
+  <version>1.0.0</version>
+  <description>
+  3D visualization of Universal Robots UR5 in web browser
+  </description>
+  <maintainer email="muner_szr6216@outlook.com">CRH380B-6216L</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+</package>

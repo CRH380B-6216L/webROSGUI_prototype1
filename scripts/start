@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+source /opt/ros/$ROS_DISTRO/setup.bash;
+ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/home/$USER/catkin_ws/src
+roscd prototype_1;
+ws;

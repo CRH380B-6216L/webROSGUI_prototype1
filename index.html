@@ -31,14 +31,7 @@ iframe {
             <p>CRH380B-6216L &lt;muner_szr6216@outlook.com&gt;</p>
             <hr>
             <div v-show="state != 'success'">
-                <p><strong>The robot is offline.</strong><br>Try to do the following steps:</p>
-                <ol>
-                    <li>Connect to the robot in the terminal of host</li>
-                    <li>Start <i>joint state publisher</i> by entering the following command in a <i>new terminal</i>:<br><code>rosrun joint_state_publisher joint_state_publisher</code></li>
-                    <li>Start <i>TF bridge for ROS web clients</i> by entering the following command in a <i>new terminal</i>:<br><code>rosrun tf2_web_republisher tf2_web_republisher</code></li>
-                    <li>Launch <i>rosbridge</i> by entering the following command in a <i>new terminal</i>:<br><code>roslaunch rosbridge_server rosbridge_websocket.launch</code></li>
-                    <li>Enter the address of the host below and click "connect"</li>
-                </ol>
+                <p><strong>The robot is offline.</strong><br>Connect to the robot by entering command <code>roslaunch prototype_1 start.launch robot_ip:=[XXX.XXX.XXX.XXX] (IP of your robot)</code> in the terminal of host.</p>
                 <div class="form-inline form-group">
                     <input class="form-control" style="width: 50%" placeholder="Address of the ROS host" v-model="address"></input>
                     <button class="btn btn-primary" @click="connect">Connect</button>

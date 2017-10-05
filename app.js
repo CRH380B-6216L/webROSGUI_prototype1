@@ -98,6 +98,8 @@ var app = new Vue({
     },
     created() {
         console.log('23333');
+        this.address = 'ws://' + window.location.hostname + ':9090';
+        this.path = 'http://' + window.location.host + '/';
         this.connect();
     }
 });
